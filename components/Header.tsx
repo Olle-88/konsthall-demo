@@ -8,6 +8,7 @@ export default function Header() {
       <Link href="/utforska" className="text-black hover:underline">Utforska</Link>
       <Link href="/reflektion" className="text-black hover:underline">Reflektion</Link>
       <Link href="/kontakt" className="text-black hover:underline">Kontakt</Link>
+      <Link href="/introduktion" className="text-black hover:underline">Introduktion</Link>
     </header>
   )
 }
