@@ -8,7 +8,6 @@ export default function Header() {
       <Link href="/utforska" className="text-white hover:text-indigo-300 transition-colors">Utforska</Link>
       <Link href="/reflektion" className="text-white hover:text-indigo-300 transition-colors">Reflektion</Link>
       <Link href="/kontakt" className="text-white hover:text-indigo-300 transition-colors">Kontakt</Link>
-      <Link href="/introduktion" className="text-white hover:text-indigo-300 transition-colors">Introduktion</Link>
     </header>
   );
 }
