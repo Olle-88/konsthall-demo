@@ -2,13 +2,13 @@ import Link from 'next/link'
 
 export default function Header() {
   return (
-    <header className="bg-gray-100 p-4 shadow flex justify-center gap-6">
-      <Link href="/" className="text-black hover:underline">Start</Link>
-      <Link href="/besok" className="text-black hover:underline">Inför besök</Link>
-      <Link href="/utforska" className="text-black hover:underline">Utforska</Link>
-      <Link href="/reflektion" className="text-black hover:underline">Reflektion</Link>
-      <Link href="/kontakt" className="text-black hover:underline">Kontakt</Link>
-      <Link href="/introduktion" className="text-black hover:underline">Introduktion</Link>
+    <header className="bg-gradient-to-r from-indigo-900 via-slate-800 to-indigo-900 p-4 shadow-md flex justify-center gap-8">
+      <Link href="/" className="text-white hover:text-indigo-300 transition-colors">Start</Link>
+      <Link href="/besok" className="text-white hover:text-indigo-300 transition-colors">Inför besök</Link>
+      <Link href="/utforska" className="text-white hover:text-indigo-300 transition-colors">Utforska</Link>
+      <Link href="/reflektion" className="text-white hover:text-indigo-300 transition-colors">Reflektion</Link>
+      <Link href="/kontakt" className="text-white hover:text-indigo-300 transition-colors">Kontakt</Link>
+      <Link href="/introduktion" className="text-white hover:text-indigo-300 transition-colors">Introduktion</Link>
     </header>
-  )
+  );
 }
