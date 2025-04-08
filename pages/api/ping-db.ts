@@ -13,11 +13,11 @@ export default async function handler(
       status: "✅ Databasen funkar!",
       antal: reflektioner.length,
     });
-  } catch (error) {
-    console.error("❌ DB-Fel:", error);
+  } catch (error: any) {
+    console.error("❌ DB-Fel:", error); // Loggar felet till Vercel logs
     res.status(500).json({
       status: "❌ Fel vid anslutning till databasen",
-      error: String(error),
+      error: error.message || String(error),
     });
   }
 }
