@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model Reflektion {
+  id         Int      @id @default(autoincrement())
+  namn       String
+  meddelande String
+  createdAt  DateTime @default(now())
+}
+model Konstverk {
+  id          Int      @id @default(autoincrement())
+  titel       String
+  konstnar    String
+  beskrivning String
+  bildUrl     String   // valfritt fält för t.ex. bildlänk
+  createdAt   DateTime @default(now())
+}
