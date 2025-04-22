@@ -1,3 +1,4 @@
+// pages/besok.tsx
 export default function Besok() {
   return (
     <>
@@ -8,4 +9,10 @@ export default function Besok() {
       </p>
     </>
   )
+}
+
+// ⚙️ Ge /besok en rosa bakgrund och mörk text
+Besok.pageConfig = {
+  bgClass: 'bg-pink-400',
+  textClass: 'text-gray-900'
 }

@@ -1,40 +1,29 @@
 // components/Layout.tsx
-import { ReactNode, CSSProperties } from 'react'
-import { useRouter } from 'next/router'
+import { ReactNode } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 
 type LayoutProps = {
   children: ReactNode
+  bgClass?: string
+  textClass?: string
 }
 
-export default function Layout({ children }: LayoutProps) {
-  const { pathname } = useRouter()
-
-  // Sätt bakgrund
-  const style: CSSProperties = {}
-  if (pathname === '/') {
-    style.backgroundImage = "url('/images/bakgrund-startsida.jpg')"
-    style.backgroundSize = 'cover'
-    style.backgroundPosition = 'center'
-  } else if (pathname === '/besok') {
-    style.backgroundColor = '#f472b6'
-  }
-
+export default function Layout({
+  children,
+  bgClass = '',
+  textClass = 'text-white',
+}: LayoutProps) {
   return (
-    <div className="relative flex flex-col min-h-screen" style={style}>
-      {pathname === '/' && (
+    <div className={`relative flex flex-col min-h-screen ${bgClass}`}>
+      {/* Overlay om bakgrunden är en bild */}
+      {bgClass.startsWith('bg-[url') && (
         <div className="absolute inset-0 bg-black bg-opacity-50 pointer-events-none" />
       )}
 
-      {/* flytta ner under header */}
-      <div className="relative z-10 flex flex-col flex-grow pt-16">
+      <div className={`relative z-10 flex flex-col flex-grow pt-16 ${textClass}`}>
         <Header />
-
-        <main className="flex-grow p-6 max-w-3xl mx-auto text-white">
-          {children}
-        </main>
-
+        <main className="flex-grow p-6 max-w-3xl mx-auto">{children}</main>
         <Footer />
       </div>
     </div>

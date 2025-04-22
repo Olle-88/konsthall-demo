@@ -1,3 +1,4 @@
+// pages/index.tsx
 import { useState } from 'react'
 
 export default function Home() {
@@ -43,4 +44,10 @@ export default function Home() {
       </p>
     </>
   )
+}
+
+// ⚙️ Ge startsidan bakgrund och textfärg
+Home.pageConfig = {
+  bgClass: "bg-[url('/images/bakgrund-startsida.jpg')] bg-cover bg-center",
+  textClass: "text-white"
 }
