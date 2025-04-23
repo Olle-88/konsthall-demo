@@ -11,26 +11,29 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   // Hämta payload
   const body = req.body.queryResult;
-  console.log("📩 Dialogflow request:", JSON.stringify(body, null, 2));
+  console.log("▶ queryText:", body.queryText);
+  console.log("▶ intent.displayName:", body.intent?.displayName);
 
   // Extract intent och språk
   const intentName = body.intent?.displayName;
   const lang = body.languageCode || "sv";
 
-  // Default-svar (fallback)
+  // Default‐fallback (om inget case matchar)
   let svar = lang.startsWith("en")
-    ? "I’m sorry, I didn’t understand that."
+    ? "I’m sorry, I didn’t understand that. Could you rephrase?"
     : "Jag förstod tyvärr inte. Kan du omformulera?";
 
-  // Hantera specifika intents
   switch (intentName) {
-    case "WELCOME":                // triggas av df-messenger med intent="WELCOME"
-    case "Default Welcome Intent": // triggas av standard Welcome Intent i Dialogflow
+    // Välkomst‐intents
+    case "WELCOME":
+    case "Default Welcome Intent":
+    case "Välkommen":
       svar = lang.startsWith("en")
         ? "Hello! Welcome to the Art Bot. How can I help you today?"
         : "Hej! Välkommen till Konstboten. Hur kan jag hjälpa dig idag?";
       break;
 
+    // Klock‐intent
     case "GetTime":
       const now = new Date();
       svar = lang.startsWith("en")
@@ -38,7 +41,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         : `Klockan är ${now.toLocaleTimeString("sv-SE")} just nu.`;
       break;
 
-    // Exempel på hur du lägger till egna intents:
+    // Dina egna custom‐intents
     case "FindGalleryIntent":
       svar = lang.startsWith("en")
         ? "Our gallery is located at Main Street 123."
@@ -51,16 +54,16 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
         : "Vi har just nu tre utställningar: A, B och C.";
       break;
 
-    // Lägg till fler case för varje nytt intent...
-    // case "YourCustomIntentName":
-    //   svar = lang.startsWith("en") ? "..." : "...";
-    //   break;
-
-    default:
-      // Om inget case matchar används det fallback-svar vi satte ovan
+    // ** Fallback‐intent **
+    // Bör finnas med webhook enabled i Dialogflow
+    case "For Unknown Questions (FallBack)":  // Exakt som det står i Dialogflow-Console
+    case "Default Fallback Intent":          // Om du låter Dialogflow skriva standardnamnet
+      svar = lang.startsWith("en")
+        ? "Sorry, I’m still not sure what you mean. Try asking in another way?"
+        : "Jag är ledsen, jag är fortfarande osäker på vad du menar. Prova att fråga på ett annat sätt?";
       break;
   }
 
-  // Returnera svaret till Dialogflow
+  // Returnera svaret
   return res.status(200).json({ fulfillmentText: svar });
 }
