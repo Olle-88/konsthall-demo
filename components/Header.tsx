@@ -6,7 +6,7 @@ export default function Header() {
     { href: '/', label: 'Start' },
     { href: '/besok', label: 'Inför besök' },
     { href: '/utforska', label: 'Utforska' },
-    { href: '/reflektion', label: 'Reflektion' },
+    { href: '/bot', label: 'bot' },
     { href: '/kontakt', label: 'Kontakt' },
     { href: '/admin-konstverk', label: 'Admin' },
   ]

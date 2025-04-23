@@ -1,7 +1,7 @@
-// global.d.ts
-import * as React from "react"
+// types/df-messenger.d.ts
+import * as React from "react";
 
-// Augment JSX so TS knows about <df-messenger>:
+// Här augmenterar vi JSX så att TS vet att <df-messenger> är giltigt
 declare global {
   namespace JSX {
     interface IntrinsicElements {
@@ -9,7 +9,7 @@ declare global {
       "df-messenger": React.DetailedHTMLProps<
         React.HTMLAttributes<HTMLElement>,
         HTMLElement
-      >
+      >;
     }
   }
 }
