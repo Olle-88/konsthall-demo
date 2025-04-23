@@ -1,7 +1,16 @@
 
-
 // pages/reflekt.tsx
 import { useState } from "react"
+import Head from "next/head"
+
+// Fixar att TypeScript/JSX förstår <df-messenger>
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      "df-messenger": any
+    }
+  }
+}
 
 export default function Reflekt() {
   const [namn, setNamn] = useState("")
@@ -31,43 +40,61 @@ export default function Reflekt() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">Reflektion & bidra</h1>
-      <p className="mb-4">
-        Dela med dig av dina tankar kring konstverken och utställningen.
-      </p>
+      {/* Laddar in Dialogflow Messenger-scriptet */}
+      <Head>
+        <script
+          src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"
+          async
+        ></script>
+      </Head>
 
-      {!skickad ? (
-        <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
-          <input
-            type="text"
-            placeholder="Ditt namn"
-            value={namn}
-            onChange={(e) => setNamn(e.target.value)}
-            className={inputClass}
-            required
-          />
-          <textarea
-            placeholder="Ditt meddelande"
-            value={meddelande}
-            onChange={(e) => setMeddelande(e.target.value)}
-            className={inputClass}
-            required
-          />
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
-          >
-            Skicka reflektion
-          </button>
-        </form>
-      ) : (
-        <p className="text-green-400 mt-4">Tack för din reflektion!</p>
-      )}
+      <div className="p-6 max-w-2xl mx-auto">
+        <h1 className="text-2xl font-bold mb-4">Reflektion & bidra</h1>
+        <p className="mb-4">
+          Dela med dig av dina tankar kring konstverken och utställningen.
+        </p>
+
+        {!skickad ? (
+          <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
+            <input
+              type="text"
+              placeholder="Ditt namn"
+              value={namn}
+              onChange={(e) => setNamn(e.target.value)}
+              className={inputClass}
+              required
+            />
+            <textarea
+              placeholder="Ditt meddelande"
+              value={meddelande}
+              onChange={(e) => setMeddelande(e.target.value)}
+              className={inputClass}
+              required
+            />
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
+            >
+              Skicka reflektion
+            </button>
+          </form>
+        ) : (
+          <p className="text-green-400 mt-4">Tack för din reflektion!</p>
+        )}
+      </div>
+
+      {/* Dialogflow chatbot längst ner till höger */}
+      <df-messenger
+        intent="WELCOME"
+        chat-title="Konstboten"
+        agent-id="c28d8b31-05a0-4078-b3b4-853f943e2c86"
+        language-code="sv"
+      ></df-messenger>
     </>
   )
 }
 
-// Konfigurera bakgrund och textfärg för just denna sida
+// Layoutinställningar (om du använder pageConfig i layout-komponent)
 Reflekt.pageConfig = {
   bgClass: "bg-[url('/images/reflektion-bg.jpg')] bg-cover bg-center",
   textClass: "text-white",
