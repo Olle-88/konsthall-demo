@@ -19,6 +19,7 @@ export default function BotPage() {
         chat-title="Konstboten"
         agent-id="c28d8b31-05a0-4078-b3b4-853f943e2c86"
         language-code="sv"
+        environment="draft"
       />
     </>
   )
