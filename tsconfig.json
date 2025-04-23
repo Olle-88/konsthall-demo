@@ -4,22 +4,22 @@
     "lib": ["dom","dom.iterable","esnext"],
     "strict": true,
     "noEmit": true,
+    "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
-    "jsx": "preserve",
-    "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "jsx": "preserve",
     "incremental": true,
     "allowJs": true,
     "skipLibCheck": true,
     "paths": { "@/*": ["./*"] }
   },
   "include": [
-    "next-env.d.ts",
+    "next-env.d.ts",   // Next’s auto-generated types
+    "global.d.ts",     // <-- our new file
     "**/*.ts",
-    "**/*.tsx",
-    "types/**/*.d.ts"         // <-- plockar upp df-messenger.d.ts
+    "**/*.tsx"
   ],
   "exclude": ["node_modules"]
 }
