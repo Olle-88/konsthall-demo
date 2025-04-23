@@ -1,17 +1,10 @@
 // global.d.ts
-import * as React from "react";
 
-declare global {
-  namespace JSX {
+// Ingen import behövs här – TS läser in alla *.d.ts som ligger under include-glob
+declare namespace JSX {
     interface IntrinsicElements {
-      /**
-       * Dialogflow Messenger custom element.
-       * Tar emot vanliga HTML-attribut.
-       */
-      "df-messenger": React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >;
+      // Vi deklarerar df-messenger som en "any"-tagg
+      "df-messenger": any
     }
   }
-}
+  
