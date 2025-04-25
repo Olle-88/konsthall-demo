@@ -1,31 +1,39 @@
 // components/Layout.tsx
-import { ReactNode } from 'react'
-import Header from './Header'
-import Footer from './Footer'
+import Header from './Header';
+import Footer from './Footer';
+import { useEffect } from 'react';
 
-type LayoutProps = {
-  children: ReactNode
-  bgClass?: string
-  textClass?: string
-}
+export default function Layout({ children }: { children: React.ReactNode }) {
+    // Add a useEffect to load the Dialogflow script
+    useEffect(() => {
+        // Create script element for Dialogflow Messenger
+        const script = document.createElement('script');
+        script.src = "https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1";
+        script.async = true;
+        document.body.appendChild(script);
 
-export default function Layout({
-  children,
-  bgClass = '',
-  textClass = 'text-white',
-}: LayoutProps) {
-  return (
-    <div className={`relative flex flex-col min-h-screen ${bgClass}`}>
-      {/* Overlay om bakgrunden är en bild */}
-      {bgClass.startsWith('bg-[url') && (
-        <div className="absolute inset-0 bg-black bg-opacity-50 pointer-events-none" />
-      )}
+        // Create the df-messenger element
+        const dfMessenger = document.createElement('df-messenger');
+        dfMessenger.setAttribute('intent', 'WELCOME');
+        dfMessenger.setAttribute('chat-title', 'Info');
+        dfMessenger.setAttribute('agent-id', 'c28d8b31-05a0-4078-b3b4-853f943e2c86');
+        dfMessenger.setAttribute('language-code', 'sv');
+        document.body.appendChild(dfMessenger);
 
-      <div className={`relative z-10 flex flex-col flex-grow pt-16 ${textClass}`}>
-        <Header />
-        <main className="flex-grow p-6 max-w-3xl mx-auto">{children}</main>
-        <Footer />
-      </div>
-    </div>
-  )
+        // Cleanup function to remove the elements when component unmounts
+        return () => {
+            document.body.removeChild(script);
+            if (document.body.contains(dfMessenger)) {
+                document.body.removeChild(dfMessenger);
+            }
+        };
+    }, []); // Empty dependency array means this runs once on mount
+
+    return (
+        <div className="flex flex-col min-h-screen bg-gray-50 text-black">
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+        </div>
+    );
 }
